@@ -1,5 +1,5 @@
 # LabSoftware
-Ausgusto
+Augusto
 Felipe 
 Guilherme
 Lucas
