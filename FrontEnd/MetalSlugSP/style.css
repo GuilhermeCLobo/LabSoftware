@@ -1,0 +1,37 @@
+.cenario{
+    position: absolute;
+    top:20%;
+    left:25%;
+    width: 50%;
+    height: 60%;
+    z-index: -2;
+}
+
+.gif{
+    position: absolute;
+    top:20%;
+    left:25%;
+    width: 50%;
+    height: 60%;
+    z-index: -1;
+
+}
+.botoes{
+    margin: 24% 0 0 42.8%;
+    
+}
+
+a{
+    text-decoration: none;
+}
+.botoes button{
+    width: 25%;
+    border: 8px solid #DABC52;
+    background-color: #4F716E;
+    color:white;
+    display: block;
+    font-size: 20px;
+    padding: 10px;
+    margin-top: 2%;
+    cursor: pointer;
+}
