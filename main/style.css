@@ -1,0 +1,238 @@
+body{
+    background-image: url("/img/backgroundMenu.png");
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+main{
+    display: flex;
+    justify-content:center;
+    text-align: center;
+}
+
+.containerDad{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    /* border: 1px solid red; */
+    width: 40%;
+}
+
+button{
+    width: 35%;
+    border-radius: 20px;
+    padding: 10px 25px 10px 25px;
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
+    border: 1px solid white;
+    background-color: rgb(000,000,000,0.5);
+    cursor:pointer;
+}
+
+button:hover{
+    border: 1px solid orange ;
+}
+
+#asteroide{
+    position: absolute;
+    animation: queda1 5s infinite;
+    z-index: -1;
+}
+
+#asteroide2{
+    position: absolute;
+    animation: queda2 6s infinite;
+    z-index: -1;
+}
+
+#asteroide3{
+    position: absolute;
+    animation: queda3 7s infinite;
+    z-index: -1;
+}
+
+#asteroide4{
+    position: absolute;
+    animation: queda4 8s infinite;
+    z-index: -1;
+}
+#asteroide5{
+    position: absolute;
+    animation: queda5 9s infinite;
+    z-index: -1;
+}
+#asteroide6{
+    position: absolute;
+    animation: queda6 10s infinite;
+    z-index: -1;
+}
+#asteroide7{
+    position: absolute;
+    animation: queda7 11s infinite;
+    z-index: -1;
+}
+#asteroide8{
+    position: absolute;
+    animation: queda8 12s infinite;
+    z-index: -1;
+}
+#asteroide9{
+    position: absolute;
+    animation: queda8 13s infinite;
+    z-index: -1;
+}
+
+@keyframes queda1 {
+    0%{top:-10%;
+        right:10%;
+        transform: rotate(0deg);}
+    80%{top:100%;
+        right:90%;
+        transform: rotate(-180deg);}
+    100%{top:100%;
+        right:90%;
+        transform: rotate(40deg);}
+}
+
+
+@keyframes queda2 {
+    0%{top:-10%;
+        right:10%;
+        transform: rotate(0deg);}
+    80%{top:100%;
+        right:85%;
+        transform: rotate(200deg);}
+    100%{top:100%;
+        right:85%;
+        transform: rotate(40deg);}
+}
+
+@keyframes queda3 {
+    0%{top:-10%;
+        right:10%;
+        transform: rotate(0deg);}
+    80%{top:100%;
+        right:100%;
+        transform: rotate(150deg);}
+    100%{top:100%;
+        right:100%;
+        transform: rotate(40deg);}
+}
+
+@keyframes queda4 {
+    0%{top:-10%;
+        right:10%;
+        transform: rotate(0deg);}
+    50%{top:100%;
+        right:80%;
+        transform: rotate(180deg);}
+    100%{top:100%;
+        right:80%;
+        transform: rotate(40deg);}
+}
+@keyframes queda5 {
+    0%{top:-10%;
+        right:10%;
+        transform: rotate(0deg);}
+    50%{top:100%;
+        right:70%;
+        transform: rotate(250deg);}
+    100%{top:100%;
+        right:70%;
+        transform: rotate(40deg);}
+}
+@keyframes queda6 {
+    0%{top:-10%;
+        right:10%;
+        transform: rotate(0deg);}
+    50%{top:100%;
+        right:60%;
+        transform: rotate(180deg);}
+    100%{top:100%;
+        right:60%;
+        transform: rotate(40deg);}
+}
+@keyframes queda7 {
+    0%{top:-10%;
+        right:10%;
+        transform: rotate(0deg);}
+    50%{top:100%;
+        right:100%;
+        transform: rotate(180deg);}
+    100%{top:100%;
+        right:100%;
+        transform: rotate(40deg);}
+}
+@keyframes queda8 {
+    0%{top:-10%;
+        right:10%;
+        transform: rotate(0deg);}
+    50%{top:100%;
+        right:100%;
+        transform: rotate(180deg);}
+    100%{top:100%;
+        right:100%;
+        transform: rotate(40deg);}
+}
+@keyframes queda9 {
+    0%{top:-10%;
+        right:10%;
+        transform: rotate(0deg);}
+    50%{top:100%;
+        right:100%;
+        transform: rotate(180deg);}
+    100%{top:100%;
+        right:100%;
+        transform: rotate(40deg);}
+}
+
+#jupter{
+    position: absolute;
+    top:10%;
+    height: 10%;
+    width: 5%;
+    animation: planetaJupter 90s infinite;
+    z-index: -2;
+}
+
+@keyframes planetaJupter {
+    0%{right: -5%;
+        transform: rotate(0deg);}
+    100%{right:150%;
+        transform: rotate(360deg);}
+}
+
+#netuno{
+    position: absolute;
+    height: 8%;
+    width: 5%;
+    animation: planetaNetuno 120s infinite;
+    z-index:-2;
+}
+
+@keyframes planetaNetuno {
+    0%{top:40%;
+        left: -5%;
+        transform: rotate(0deg);}
+    100%{top:0%;
+        left:150%;
+        transform: rotate(360deg);}
+}
+
+#terra{
+    position: absolute;
+    height: 10%;
+    width: 5%;
+    animation:planetaTerra 100s infinite;
+    z-index:-2;
+}
+
+@keyframes planetaTerra {
+    0%{top:60%;
+        left: -5%;
+        transform: rotate(0deg);}
+    100%{top:10%;
+        left:150%;
+        transform: rotate(360deg);}
+}

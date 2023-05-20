@@ -1,0 +1,50 @@
+body{
+    background-image: url("/img/backgroundMenu.png");
+    overflow-y: hidden;
+    overflow-x: hidden;
+}
+
+main{
+    display: flex;
+    justify-content:center;
+    text-align: center;
+}
+
+.containerDad{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    /* border: 1px solid red; */
+    width: 40%;
+}
+
+.container{
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.line{
+    height: 3px;
+    width: 100%;
+    background-color: orange;
+}
+
+button{
+    width: 100%;
+    border-radius: 20px;
+    padding: 10px 25px 10px 25px;
+    color: red;
+    font-size: 24px;
+    font-weight: bold;
+    border: 1px solid white;
+    background-color: rgb(000,000,000,0.5);
+    cursor:pointer;
+}
+
+button:hover{
+    border: 1px solid orange ;
+}
+
