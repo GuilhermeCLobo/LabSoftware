@@ -11,19 +11,19 @@ const scaledCanvas = {
 }
 
 const floorCollisions2D = []
-for (let i = 0; i < floorCollisions.length; i += 474) {
-  floorCollisions2D.push(floorCollisions.slice(i, i + 474))
+for (let i = 0; i < floorCollisions.length; i += 360) {
+  floorCollisions2D.push(floorCollisions.slice(i, i + 360))
 }
 
 const collisionBlocks = []
 floorCollisions2D.forEach((row, y) => {
   row.forEach((symbol, x) => {
-    if (symbol === 5402) {
+    if (symbol > 0) {
       collisionBlocks.push(
         new CollisionBlock({
           position: {
-            x: x * 16,
-            y: y * 16,
+            x: x * 4,
+            y: y * 4,
           },
         })
       )
@@ -39,12 +39,12 @@ for (let i = 0; i < platformCollisions.length; i += 474) {
 const platformCollisionBlocks = []
 platformCollisions2D.forEach((row, y) => {
   row.forEach((symbol, x) => {
-    if (symbol === 5402) {
+    if (symbol > 0) {
       platformCollisionBlocks.push(
         new CollisionBlock({
           position: {
-            x: x * 16,
-            y: y * 16,
+            x: x * 4,
+            y: y * 4,
           },
           height: 4,
         })
@@ -54,6 +54,8 @@ platformCollisions2D.forEach((row, y) => {
 })
 
 const gravity = 0.1
+
+let pular = true
 
 const player = new Player({
   position: {
@@ -165,6 +167,7 @@ function animate() {
     player.lastDirection = 'left'
     // player.shouldPanCameraToTheRight({ canvas, camera })
   } else if (player.velocity.y === 0) {
+    pular = true 
     if (player.lastDirection === 'right') 
     player.switchSprite('Idle')
     else player.switchSprite('IdleLeft')
@@ -196,7 +199,11 @@ window.addEventListener('keydown', (event) => {
       keys.a.pressed = true
       break
     case 'w':
-      player.velocity.y = -9
+      if (pular){
+        player.velocity.y = -9
+        pular=false
+      }
+      
       break
   }
 })

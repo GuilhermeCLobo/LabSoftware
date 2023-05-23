@@ -25,8 +25,8 @@ class Player extends Sprite {
         x: this.position.x,
         y: this.position.y,
       },
-      width: 10,
-      height: 10,
+      width: 221,
+      height: 332,
     }
 
     this.animations = animations
@@ -166,8 +166,8 @@ class Player extends Sprite {
         x: this.position.x + 35,
         y: this.position.y + 26,
       },
-      width: 14,
-      height: 27,
+      width: 45,
+      height: 80,
     }
   }
 
