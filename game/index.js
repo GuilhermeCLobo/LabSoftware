@@ -5,6 +5,8 @@ canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 
 
+let gameOver = true
+
 const scaledCanvas = {
   width: canvas.width / 1,
   height: canvas.height / 1,
@@ -57,6 +59,8 @@ const gravity = 0.1
 
 let pular = true
 
+
+
 const player = new Player({
   position: {
     x: 170,
@@ -88,22 +92,22 @@ const player = new Player({
       // frameBuffer: 3,
     },
     FallLeft: {
-      imageSrc: './img/warrior/Astronauta.png',
+      imageSrc: './img/warrior/AstronautaLeft.png',
       // frameRate: 2,
       // frameBuffer: 3,
     },
     RunLeft: {
-      imageSrc: './img/warrior/Astronauta.png',
+      imageSrc: './img/warrior/AstronautaLeft.png',
       // frameRate: 8,
       // frameBuffer: 5,
     },
     IdleLeft: {
-      imageSrc: './img/warrior/Astronauta.png',
+      imageSrc: './img/warrior/AstronautaLeft.png',
       // frameRate: 8,
       // frameBuffer: 3,
     },
     JumpLeft: {
-      imageSrc: './img/warrior/Astronauta.png',
+      imageSrc: './img/warrior/AstronautaLeft.png',
       // frameRate: 2,
       // frameBuffer: 3,
     },
@@ -118,6 +122,8 @@ const keys = {
     pressed: false,
   },
 }
+
+let teste = 0
 
 const background = new Sprite({
   position: {
@@ -136,14 +142,44 @@ const camera = {
   },
 }
 
-function animate() {
-  window.requestAnimationFrame(animate)
-  c.fillStyle = 'white'
-  c.fillRect(0, 0, canvas.width, canvas.height)
+function kant(){
+    
+  if (teste==0)
+    teste=player.position.y 
+  
+  
+  let numero = (((player.position.y) - teste)*(-1)/1000) + 0.21
+  let numberSmall = numero.toFixed(2)
 
+  if (numberSmall < 0){
+    numberSmall = 0.00
+    numberSmall = numberSmall.toFixed(2)
+  }
+
+
+  return c.fillStyle = 'green',c.font = '30px arial',c.fillText(numberSmall,10 ,50)
+}
+
+function end(){
+  if(player.position.y >12000){
+    gameOver = false
+  }
+}
+
+// ,c.fillRect(0, 0, 100, 100),
+
+function animate() {
+  if(gameOver){
+window.requestAnimationFrame(animate)
+  
+  
+  
   c.save()
+  
   c.translate(camera.position.x, camera.position.y)
+  
   background.update()
+  
   // collisionBlocks.forEach((collisionBlock) => {
   //   collisionBlock.update()
   // })
@@ -151,7 +187,6 @@ function animate() {
   // platformCollisionBlocks.forEach((block) => {
   //   block.update()
   // })
-
   player.checkForHorizontalCanvasCollision()
   player.update()
 
@@ -184,8 +219,15 @@ function animate() {
     player.switchSprite('Fall')
     else player.switchSprite('FallLeft')
   }
-
+  
   c.restore()
+  kant()
+  end()
+  }
+  else {
+    c.fillText("Fim",200,200)
+  }
+  
 }
 
 animate()
