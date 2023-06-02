@@ -68,46 +68,46 @@ const player = new Player({
   },
   collisionBlocks,
   platformCollisionBlocks,
-  imageSrc: './img/warrior/Astronauta.png',
+  imageSrc: '/img/Astronauta.png',
   frameRate: 1,
   animations: {
     Idle: {
-      imageSrc: './img/warrior/Astronauta.png',
+      imageSrc: '/img/Astronauta.png',
       // frameRate: 8,
       // frameBuffer: 3,
     },
     Run: {
-      imageSrc: './img/warrior/Astronauta.png',
+      imageSrc: '/img/Astronauta.png',
       // frameRate: 8,
       // frameBuffer: 5,
     },
     Jump: {
-      imageSrc: './img/warrior/Astronauta.png',
+      imageSrc: '/img/Astronauta.png',
       // frameRate: 2,
       // frameBuffer: 3,
     },
     Fall: {
-      imageSrc: './img/warrior/Astronauta.png',
+      imageSrc: '/img/Astronauta.png',
       // frameRate: 2,
       // frameBuffer: 3,
     },
     FallLeft: {
-      imageSrc: './img/warrior/AstronautaLeft.png',
+      imageSrc: '/img/AstronautaLeft.png',
       // frameRate: 2,
       // frameBuffer: 3,
     },
     RunLeft: {
-      imageSrc: './img/warrior/AstronautaLeft.png',
+      imageSrc: '/img/AstronautaLeft.png',
       // frameRate: 8,
       // frameBuffer: 5,
     },
     IdleLeft: {
-      imageSrc: './img/warrior/AstronautaLeft.png',
+      imageSrc: '/img/AstronautaLeft.png',
       // frameRate: 8,
       // frameBuffer: 3,
     },
     JumpLeft: {
-      imageSrc: './img/warrior/AstronautaLeft.png',
+      imageSrc: '/img/AstronautaLeft.png',
       // frameRate: 2,
       // frameBuffer: 3,
     },
@@ -123,9 +123,10 @@ const keys = {
   },
 }
 
-let teste = 0
+let hold = 0
+let holdX = 0
 
-const background = new Sprite({
+var background = new Sprite({
   position: {
     x: 0,
     y: 0,
@@ -142,13 +143,15 @@ const camera = {
   },
 }
 
-function kant(){
-    
-  if (teste==0)
-    teste=player.position.y 
+function pontuation(){
   
-  
-  let numero = (((player.position.y) - teste)*(-1)/1000) + 0.21
+
+
+  if (hold == 0){
+  hold = player.position.y 
+  holdX = player.position.x
+  }
+  let numero = (((player.position.y) - hold)*(-1)/1000) + 0.21
   let numberSmall = numero.toFixed(2)
 
   if (numberSmall < 0){
@@ -157,28 +160,54 @@ function kant(){
   }
 
 
-  return c.fillStyle = 'green',c.font = '30px arial',c.fillText(numberSmall,10 ,50)
+  return c.fillStyle = 'yellow',c.font = '40px consolas',c.fillText(numberSmall + "km",10 ,50)
 }
 
 function end(){
-  if(player.position.y >12000){
+  var botao = document.createElement("button");
+
+  botao.innerText = "JOGAR NOVAMENTE";
+  botao.style.padding = "10px 25px 10px 25px";
+  botao.style.backgroundColor = "rgb(000,000,000,0.5)";
+  botao.style.color = "red";
+  botao.style.border = "1px solid white";
+  botao.style.textAlign = "center";
+  botao.style.fontSize = "24px";
+  botao.style.cursor = "pointer";
+  botao.style.borderRadius = "20px";
+  botao.style.position = "fixed";
+  botao.style.top= "50%";
+  botao.style.left = "38%";
+
+  document.body.appendChild(botao);
+
+  botao.addEventListener("click", function() {
+      gameOver = true;
+      player.position.y = hold;
+      player.position.x = holdX;
+      document.body.removeChild(botao);
+      animate();
+});
+c.fillText("Fim",500,200)
+}
+
+function die(){
+  if(player.position.y > 12000){
     gameOver = false
   }
 }
 
-// ,c.fillRect(0, 0, 100, 100),
 
 function animate() {
+  
   if(gameOver){
-window.requestAnimationFrame(animate)
+  window.requestAnimationFrame(animate);
+
+  c.save();
   
+  c.translate(camera.position.x, camera.position.y);
   
-  
-  c.save()
-  
-  c.translate(camera.position.x, camera.position.y)
-  
-  background.update()
+  background.update();
   
   // collisionBlocks.forEach((collisionBlock) => {
   //   collisionBlock.update()
@@ -187,20 +216,18 @@ window.requestAnimationFrame(animate)
   // platformCollisionBlocks.forEach((block) => {
   //   block.update()
   // })
-  player.checkForHorizontalCanvasCollision()
-  player.update()
+  player.checkForHorizontalCanvasCollision();
+  player.update();
 
   player.velocity.x = 0
   if (keys.d.pressed) {
-    player.switchSprite('Run')
-    player.velocity.x = 2
-    player.lastDirection = 'right'
-    // player.shouldPanCameraToTheLeft({ canvas, camera })
+    player.switchSprite('Run');
+    player.velocity.x = 2;
+    player.lastDirection = 'right';
   } else if (keys.a.pressed) {
-    player.switchSprite('RunLeft')
-    player.velocity.x = -2
-    player.lastDirection = 'left'
-    // player.shouldPanCameraToTheRight({ canvas, camera })
+    player.switchSprite('RunLeft');
+    player.velocity.x = -2;
+    player.lastDirection = 'left';
   } else if (player.velocity.y === 0) {
     pular = true 
     if (player.lastDirection === 'right') 
@@ -221,11 +248,15 @@ window.requestAnimationFrame(animate)
   }
   
   c.restore()
-  kant()
-  end()
+
+  pontuation()
+  
+  die()
+
   }
   else {
-    c.fillText("Fim",200,200)
+    background.update();
+    end();
   }
   
 }
