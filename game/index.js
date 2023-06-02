@@ -4,6 +4,18 @@ const c = canvas.getContext('2d')
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight
 
+var music = new Audio();
+music.src= "/game/sound/Atom-Music-Audio-Launch-Epic-Scifi-Hybrid-TVMusic.mp3"
+function stopMusic() {
+  music.pause();
+  music.currentTime = 0;
+}
+
+
+const audioPulo = new Audio('/game/sound/jumpSoundtsi.mp3');
+function playMusic() {
+  audioPulo.play();
+}
 
 let gameOver = true
 
@@ -59,7 +71,7 @@ const gravity = 0.1
 
 let pular = true
 
-
+let record = 0;
 
 const player = new Player({
   position: {
@@ -144,9 +156,6 @@ const camera = {
 }
 
 function pontuation(){
-  
-
-
   if (hold == 0){
   hold = player.position.y 
   holdX = player.position.x
@@ -154,16 +163,23 @@ function pontuation(){
   let numero = (((player.position.y) - hold)*(-1)/1000) + 0.21
   let numberSmall = numero.toFixed(2)
 
-  if (numberSmall < 0){
-    numberSmall = 0.00
-    numberSmall = numberSmall.toFixed(2)
+  if (numberSmall > record){
+    record = numberSmall;
+    
   }
 
+  if (numberSmall < 0){
+    numberSmall = 0.00
+    numberSmall = numberSmall.toFixed(2);
+  }
 
   return c.fillStyle = 'yellow',c.font = '40px consolas',c.fillText(numberSmall + "km",10 ,50)
 }
 
 function end(){
+
+  stopMusic();
+
   var botao = document.createElement("button");
 
   botao.innerText = "JOGAR NOVAMENTE";
@@ -177,7 +193,7 @@ function end(){
   botao.style.borderRadius = "20px";
   botao.style.position = "fixed";
   botao.style.top= "50%";
-  botao.style.left = "38%";
+  botao.style.left = "37%";
 
   document.body.appendChild(botao);
 
@@ -188,7 +204,9 @@ function end(){
       document.body.removeChild(botao);
       animate();
 });
-c.fillText("Fim",500,200)
+
+c.font = '60px consolas'
+c.fillText(record + "km",550,200)
 }
 
 function die(){
@@ -199,11 +217,11 @@ function die(){
 
 
 function animate() {
-  
   if(gameOver){
+    
   window.requestAnimationFrame(animate);
-
   c.save();
+  music.play()
   
   c.translate(camera.position.x, camera.position.y);
   
@@ -229,7 +247,6 @@ function animate() {
     player.velocity.x = -2;
     player.lastDirection = 'left';
   } else if (player.velocity.y === 0) {
-    pular = true 
     if (player.lastDirection === 'right') 
     player.switchSprite('Idle')
     else player.switchSprite('IdleLeft')
@@ -246,21 +263,36 @@ function animate() {
     player.switchSprite('Fall')
     else player.switchSprite('FallLeft')
   }
+
+  if(player.velocity.y == 0)
+  {
+    pular = true
+  }
+  else{
+    pular = true
+  }
   
+
   c.restore()
 
   pontuation()
   
   die()
 
+  if (player.position.y < 100  ){
+    console.log("ok")
+    window.location.href("Winner\index.html");
+
+  }
+  
   }
   else {
+
     background.update();
     end();
   }
   
 }
-
 animate()
 
 window.addEventListener('keydown', (event) => {
@@ -273,15 +305,23 @@ window.addEventListener('keydown', (event) => {
       break
     case 'w':
       if (pular){
-        player.velocity.y = -9
-        pular=false
+        if (player.position.y < 3500)
+        {
+          player.velocity.y = -12
+        }
+        else
+        {
+          player.velocity.y = -9
+        }
+        playMusic() 
+
       }
-      
       break
   }
 })
 
 window.addEventListener('keyup', (event) => {
+  
   switch (event.key) {
     case 'd':
       keys.d.pressed = false
